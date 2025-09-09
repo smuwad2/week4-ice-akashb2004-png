@@ -1,32 +1,58 @@
 <html>
+   <head>
+      <title>Event Handling</title>
+   </head>
+   <body>
+     
+      <h1>Shopping List</h1>
+      <p>Get it done today</p>
+      <form id="inputForm">
+         <input type="text" id="item" placeholder="Enter items">
+         <button type="submit">Enter</button>
+      </form>
 
-<head>
-   <title>Event Handling</title>
-</head>
+      <ul id="list">
+         <li>Notebook <button class="delete">delete</button></li>
+         <li>Jello <button class="delete">delete</button></li>
+         <li>Spinach <button class="delete">delete</button></li>
+         <li>Rice <button class="delete">delete</button></li>
+         <li>Birthday Cake <button class="delete">delete</button></li>
+         <li>Candles <button class="delete">delete</button></li>
+      </ul>
+      
+      <script>
+         var form = document.getElementById("inputForm");
+         var input = document.getElementById("item");
+         var list = document.getElementById("list");
+         form.addEventListener("submit", function(event) {
+            event.preventDefault(); 
 
-<body>
+            var value = input.value.trim();
+            if (value !== "") {
+               var li = document.createElement("li");
+               li.textContent = value + " ";
 
-   <h1>Shopping List</h1>
-   <p>Get it done today</p>
+               var delBtn = document.createElement("button");
+               delBtn.textContent = "delete";
+               delBtn.className = "delete";
 
-   <input type="text" id="inputText">
-   <!-- add a button here for adding new item -->
+               delBtn.addEventListener("click", function() {
+                  li.remove();
+               });
 
-   <ul>
-      <li>Notebook<!--<button>Delete</button></li>-->
-      <li>Jello</li>
-      <li>Spinach</li>
-      <li>Rice</li>
-      <li>Birthday Cake</li>
-      <li>Candles</li>
-   </ul>
+               li.appendChild(delBtn);
+               list.appendChild(li);
 
-   <script>
-
-      // add code here
-
-   </script>
-
-</body>
-
+               input.value="";
+            }
+         });
+         var existingBtns = document.querySelectorAll(".delete");
+         existingBtns.forEach(function(btn) {
+            btn.addEventListener("click", function() {
+               btn.parentElement.remove();
+            });
+         });
+      </script>
+ 
+   </body>
 </html>
