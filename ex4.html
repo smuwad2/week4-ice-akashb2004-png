@@ -8,69 +8,43 @@
 
    <h1>Shopping List</h1>
    <p>Get it done today</p>
-   <input id="userinput" onkeypress="addListAfterKeyPress()" type="text" placeholder="enter items">
-   <button id="enter" onclick="addListAfterClick()">Enter</button>
-   <ul id="myul">
-      <li>Notebook
-         <button onclick="remove(this.parentNode)">delete</button>
-      </li>
-      <li>Jello
-         <button onclick="remove(this.parentNode)">delete</button>
-      </li>
-      <li>Spinach
-         <button onclick="remove(this.parentNode)">delete</button>
-      </li>
-      <li>Rice
-         <button onclick="remove(this.parentNode)">delete</button>
-      </li>
-      <li>Birthday Cake
-         <button onclick="remove(this.parentNode)">delete</button>
-      </li>
-      <li>Candles
-         <button onclick="remove(this.parentNode)">delete</button>
-      </li>
+
+   <input type="text" id="inputText">
+   <!-- add a button here for adding new item -->
+   <button id="btnAdd" onclick='addItem()'>Enter</button>
+   <ul>
+      <li>Notebook<button onclick="removeItem(this.parentNode)">Delete</button></li>
+      <li>Jello<button onclick="removeItem(this.parentNode)">Delete</button></li>
+      <li>Spinach<button onclick="removeItem(this.parentNode)">Delete</button></li>
+      <li>Rice<button onclick="removeItem(this.parentNode)">Delete</button></li>
+      <li>Birthday Cake<button onclick="removeItem(this.parentNode)">Delete</button></li>
+      <li>Candles<button onclick="removeItem(this.parentNode)">Delete</button></li>
    </ul>
 
    <script>
 
-      function addListAfterClick() {
-         console.log(event);
-         var input = document.getElementById("userinput");
-         if (input.value.length > 0) {
-            createNewItem(input);
-            input.value = "";
-         }
+      // add code here
+      function addItem() {
+         const newItemVal = document.getElementById('inputText').value;
+         const ulElem = document.getElementsByTagName("ul")[0];
+         const liElem = document.createElement('li');
+         liElem.innerText = newItemVal;
+         
+         const btnElem = document.createElement('button');
+         btnElem.innerText = 'delete';
+         //btnElem.addEventListener('click', removeItem(btnElem.parentNode));
+         btnElem.addEventListener('click', function() {
+            liElem.remove();
+         });
+
+         liElem.appendChild(btnElem);
+         ulElem.appendChild(liElem);
       }
 
-      function addListAfterKeyPress() {
-         console.log(event);
-         console.log(event.keyCode);
-
-         var input = document.getElementById("userinput");
-         if (input.value.length > 0 && event.keyCode == 13) {
-            createNewItem(input);
-            input.value = "";
-         }
-      }
-
-      function createNewItem(item) {
-         var ul = document.getElementsByTagName("ul")[0];
-         var li = document.createElement("li");
-         const textNode = document.createTextNode(item.value);
-         li.appendChild(textNode);
-         const btn = document.createElement("button");
-         const btnText = document.createTextNode("delete");
-         btn.appendChild(btnText);
-         btn.addEventListener("click", function() {
-            this.parentNode.remove();
-         })
-         li.appendChild(btn);
-         ul.appendChild(li);
-      }
-
-      function remove(obj) {
+      function removeItem(obj) {
          obj.remove();
       }
+
    </script>
 
 </body>
